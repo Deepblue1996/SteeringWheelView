@@ -8,6 +8,7 @@
     tools:context="zou.dahua.stree.MainActivity">
 
     <zou.dahua.stree.SteeringWheelView
+        android:id="@+id/steeringWheelView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"

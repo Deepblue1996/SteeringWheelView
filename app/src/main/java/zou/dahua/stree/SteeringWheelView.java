@@ -22,7 +22,7 @@ import android.view.View;
 public class SteeringWheelView extends View {
 
     // 箭头长度
-    private final static int directionWidth = 35;
+    private final static int directionWidth = 25;
 
     // 箭头宽度
     private final static float DIRECTION_WIDTH = 6.0f;
@@ -71,6 +71,8 @@ public class SteeringWheelView extends View {
     private boolean rightTurn = false;
     private boolean MTurn = false;
 
+    private WheelTouch wheelTouch;
+
     public SteeringWheelView(Context context) {
         super(context);
         initData(context);
@@ -90,6 +92,10 @@ public class SteeringWheelView extends View {
     public SteeringWheelView(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         initData(context);
+    }
+
+    public void setWheelTouch(WheelTouch wheelTouch) {
+        this.wheelTouch = wheelTouch;
     }
 
     /**
@@ -387,15 +393,30 @@ public class SteeringWheelView extends View {
         if (MJ > WIDTH_HEIGHT / 15 + 20) {
             if (MK < -45 && MK > -180 + 45) {
                 upperTurn = true;
+                if(wheelTouch!=null) {
+                    wheelTouch.upperTurn();
+                }
             } else if (MK > -45 && MK < 45) {
                 rightTurn = true;
+                if(wheelTouch!=null) {
+                    wheelTouch.rightTurn();
+                }
             } else if (MK > 45 && MK < 180 - 45) {
                 lowerTurn = true;
+                if(wheelTouch!=null) {
+                    wheelTouch.lowerTurn();
+                }
             } else {
                 leftTurn = true;
+                if(wheelTouch!=null) {
+                    wheelTouch.leftTurn();
+                }
             }
         } else {
             MTurn = true;
+            if(wheelTouch!=null) {
+                wheelTouch.MTurn();
+            }
         }
         // 重绘
         invalidate();
